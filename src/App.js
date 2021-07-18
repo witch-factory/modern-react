@@ -1,24 +1,22 @@
-import logo from './logo.svg';
+import React from "react";
+import Hello from "./hello.js"
 import './App.css';
+import Wrapper from "./Wrapper";
 
 function App() {
+  const name='김성현';
+  const style={
+    backgroundColor:'blue',
+    color:'aqua',
+    fontSize:24,
+    padding:'1rem'
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper>
+      <Hello name="react" color='pink' isSpecial={true}/>
+      <Hello name="react" color='cyan'/>
+    </Wrapper>
   );
 }
 
