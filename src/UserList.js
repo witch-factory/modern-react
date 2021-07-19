@@ -8,19 +8,8 @@ function User({user}){
   );
 }
 
-function UserList(){
-  const users=[
-    {
-      id:1,
-      username:'velopert',
-      email:"velopert@gmail.com"
-    },
-    {
-      id:2,
-      username:"tester",
-      email:"test@test.com"
-    }
-  ];
+function UserList({users}){
+
 
   return (
     <>
