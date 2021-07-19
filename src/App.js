@@ -23,12 +23,14 @@ function App() {
     {
       id:1,
       username:'velopert',
-      email:"velopert@gmail.com"
+      email:"velopert@gmail.com",
+      active:true
     },
     {
       id:2,
       username:"tester",
-      email:"test@test.com"
+      email:"test@test.com",
+      active:false
     }
   ]);
 
@@ -53,6 +55,15 @@ function App() {
     setUsers(users.filter(user=>user.id!==id));
   };
 
+  const onToggle=(id)=>{
+    setUsers(
+      users.map(user=>
+        user.id===id?{...user, active:!user.active}:user
+        //id 가 같으면 active 상태를 반전시켜줌
+      )
+    )
+  }
+
   return (
     <>
       <CreateUser
@@ -61,7 +72,7 @@ function App() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} onRemove={onRemove} />
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
     </>
   );
 }
