@@ -1,6 +1,12 @@
-import React from "react";
+import React , {useEffect} from "react";
 
 function User({user, onRemove, onToggle}){
+  useEffect(()=>{
+    console.log("컴포넌트 화면에 등장");
+    return ()=>{
+      console.log("컴포넌트 화면에서 사라짐");
+    }
+  }, []);
   return (
     <div>
       <b
