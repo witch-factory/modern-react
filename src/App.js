@@ -16,16 +16,13 @@ function App() {
 
   const {username, email}=inputs;
 
-  const onChange=useCallback(
-    (e)=>{
-      const {name, value}=e.target;
-      setInputs({
-        ...inputs,
-        [name]:value
-      });
-    },
-    [inputs]
-  );
+  const onChange=useCallback((e)=> {
+    const {name, value} = e.target;
+    setInputs(inputs => ({
+      ...inputs,
+      [name]: value
+    }));
+  }, []);
 
 
   const [users, setUsers]=useState([
@@ -79,7 +76,7 @@ function App() {
   const count=useMemo(()=>countActiveUsers(users), [users]);
 
   return (
-    <>
+    <div>
       <CreateUser
         username={username}
         email={email}
@@ -88,7 +85,7 @@ function App() {
       />
       <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
       <div>활성 사용자 수는 {count}</div>
-    </>
+    </div>
   );
 }
 
