@@ -1,4 +1,4 @@
-import React, {useRef, useState, useMemo} from "react";
+import React, {useRef, useState, useMemo, useCallback} from "react";
 import './App.css';
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
@@ -16,13 +16,17 @@ function App() {
 
   const {username, email}=inputs;
 
-  const onChange=(e)=>{
-    const {name, value}=e.target;
-    setInputs({
-      ...inputs,
-      [name]:value
-    });
-  };
+  const onChange=useCallback(
+    (e)=>{
+      const {name, value}=e.target;
+      setInputs({
+        ...inputs,
+        [name]:value
+      });
+    },
+    [inputs]
+  );
+
 
   const [users, setUsers]=useState([
     {
@@ -40,7 +44,7 @@ function App() {
   ]);
 
   const nextID=useRef(3);
-  const onCreate=()=>{
+  const onCreate=useCallback(()=>{
     //배열에 항목 추가
     const newUser={
       id:nextID.current,
@@ -54,20 +58,23 @@ function App() {
       email:''
     });
     nextID.current+=1;
-  }
+  }, [users, username, email]);
 
-  const onRemove=(id)=>{
+  const onRemove=useCallback(
+    (id)=>{
     setUsers(users.filter(user=>user.id!==id));
-  };
+  }, [users]);
 
-  const onToggle=(id)=>{
+  const onToggle=useCallback(
+    (id)=>{
     setUsers(
       users.map(user=>
         user.id===id?{...user, active:!user.active}:user
         //id 가 같으면 active 상태를 반전시켜줌
       )
     )
-  }
+  }, [users]
+  );
 
   const count=useMemo(()=>countActiveUsers(users), [users]);
 
