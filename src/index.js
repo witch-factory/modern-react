@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Hello from "./hello";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Hello isSpecial={true} color={'pink'}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
