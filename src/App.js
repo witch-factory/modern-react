@@ -1,7 +1,7 @@
 import React, {useRef, useReducer, useMemo, useCallback} from "react";
-import './App.css';
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
+import useInputs from "./hooks/useInputs";
 
 function countActiveUsers(users){
   console.log("활성 사용자 수 카운팅");
@@ -9,11 +9,6 @@ function countActiveUsers(users){
 }
 
 const initialState={
-  inputs:{
-    username:'',
-    email:''
-  },
-  //input 창에 들어있는 값들
   users:[
     {
       id:1,
@@ -32,14 +27,6 @@ const initialState={
 
 const reducer=(state, action)=>{
   switch (action.type){
-    case 'CHANGE_INPUT':
-      return {
-        ...state,
-        inputs:{
-          ...state.inputs,
-          [action.name]:action.value
-        }
-      }
     case 'CREATE_USER':
       return {
         //업데이트된 state 값이 들어감
@@ -65,19 +52,13 @@ const reducer=(state, action)=>{
 }
 
 function App() {
+  const [{username, email}, onChange, reset]=useInputs({
+    username:'',
+    email:''
+  })
   const [state, dispatch]=useReducer(reducer, initialState);
   const nextID=useRef(3);
   const {users}=state;
-  const {username, email}=state.inputs;
-
-  const onChange=useCallback((e)=>{
-    const {name, value}=e.target;
-    dispatch({
-      type:'CHANGE_INPUT',
-      name,
-      value
-    });
-  }, []);
 
   const onCreate=useCallback(()=>{
     dispatch({
