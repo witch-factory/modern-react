@@ -8,7 +8,10 @@ const reducer=(state, action)=>{
         [action.name]:action.value
       }
     case 'RESET':
-      return action.initialForm;
+      return Object.keys(state).reduce((acc, current) => {
+        acc[current] = '';
+        return acc;
+      }, {});
     default:
       return state;
   }
@@ -22,7 +25,7 @@ const useInputs=(initialForm)=>{
     dispatch({type:'CHANGE', name, value});
   }, []);
 
-  const reset=useCallback(()=>dispatch({type:'RESET'}, initialForm), []);
+  const reset=useCallback(()=>dispatch({type:'RESET'}), []);
   return [form, onChange, reset];
 }
 

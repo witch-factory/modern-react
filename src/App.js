@@ -51,6 +51,8 @@ const reducer=(state, action)=>{
   }
 }
 
+export const UserDispatch=React.createContext(null);
+
 function App() {
   const [{username, email}, onChange, reset]=useInputs({
     username:'',
@@ -69,26 +71,14 @@ function App() {
         email
       }
     })
+    reset();
     nextID.current+=1;
-  }, [username, email]);
+  }, [username, email, reset]);
 
-  const onToggle=useCallback((id)=>{
-    dispatch({
-      type:'TOGGLE_USER',
-      id
-    })
-  }, []);
-
-  const onRemove=useCallback((id)=>{
-    dispatch({
-      type:'REMOVE_USER',
-      id
-    })
-  },[])
 
   const count=useMemo(()=>countActiveUsers(users), [users]);
   return (
-    <div>
+    <UserDispatch.Provider value={dispatch}>
       <CreateUser
         username={username}
         email={email}
@@ -97,11 +87,9 @@ function App() {
       />
       <UserList
         users={users}
-        onToggle={onToggle}
-        onRemove={onRemove}
       />
       <div>활성 사용자 수는 {count}</div>
-    </div>
+    </UserDispatch.Provider>
   );
 }
 
