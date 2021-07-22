@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Hello from "./hello";
+import Counter from "./Counter.js";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Hello isSpecial={true} color={'pink'}/>
+    <Counter />
   </React.StrictMode>,
   document.getElementById('root')
 );

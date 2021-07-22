@@ -1,34 +1,34 @@
-import React, {useReducer, useState} from "react";
+import React, { Component } from "react";
 
-function reducer(state, action){
-  switch(action.type){
-    case 'INCREMENT':
-      return state+1;
-    case 'DECREMENT':
-      return state-1;
-    default:
-      return state;
-  }
-}
-
-function Counter(){
-  const [number, dispatch]=useReducer(reducer,0);
-
-  const handleIncrease=()=>{
-    dispatch({type:'INCREMENT'});
+class Counter extends Component{
+  constructor(props) {
+    super(props);
+    this.state={
+      counter:0
+    }
   }
 
-  const handleDecrease=()=>{
-    dispatch({type:"DECREMENT"});
+  handleIncrease=()=>{
+    this.setState(state=>({
+      counter:this.state.counter+1
+    }));
   }
 
-  return (
-    <>
-      <h1>{number}</h1>
-      <button onClick={handleIncrease}>increase</button>
-      <button onClick={handleDecrease}>decrease</button>
-    </>
-  )
+  handleDecrease=()=>{
+    this.setState(state=>({
+      counter:this.state.counter-1
+    }));
+  }
+
+  render(){
+    return (
+      <div>
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.handleIncrease}>increase</button>
+        <button onClick={this.handleDecrease}>decrease</button>
+      </div>
+    )
+  }
 }
 
 export default Counter;
