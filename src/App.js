@@ -1,45 +1,19 @@
 import React from 'react';
-import styled, {ThemeProvider} from 'styled-components';
-import Button from "./components/Button";
+import styled, {createGlobalStyle} from 'styled-components';
+import TodoTemplate from "./components/TodoTemplate.js";
 
-const AppBlock=styled.div`
-  width:512px;
-  margin:0 auto;
-  margin-top:4rem;
-  border:1px solid black;
-  padding:1rem;
-`;
-
-const ButtonGroup=styled.div`
-  &+&{
-    margin-top:1rem;
+const GlobalStyle=createGlobalStyle`
+  body{
+    background: #ffe3e3;
   }
 `
 
 function App(){
   return (
-    <ThemeProvider
-      theme={{
-        palette:{
-          blue:'blue',
-          gray:'gray',
-          pink:'pink'
-        }
-      }}
-      >
-      <AppBlock>
-        <ButtonGroup>
-          <Button size="large" outline>BUTTON</Button>
-          <Button fullWidth>BUTTON</Button>
-          <Button size="small">BUTTON</Button>
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button size="large" color="pink">BUTTON</Button>
-          <Button color="pink">BUTTON</Button>
-        </ButtonGroup>
-      </AppBlock>
-    </ThemeProvider>
-
+    <>
+      <GlobalStyle />
+      <TodoTemplate>배경색 넣은 페이지</TodoTemplate>
+    </>
   )
 }
 
