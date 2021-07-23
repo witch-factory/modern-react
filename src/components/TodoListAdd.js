@@ -28,7 +28,7 @@ const CircleButton=styled.button`
   border:none;
   outline: none;
   
-  transition:0.2s all ease-in;
+  transition:0.1s all ease-in;
   
   ${props=>
     props.open&&
@@ -73,15 +73,39 @@ const Input=styled.input`
 const TodoListAdd=()=>{
   //새로운 아이템을 추가하는 창
   const [open, setOpen]=useState(false);
+  const [value, setValue]=useState('');
+
+  const dispatch=useTodoDispatch();
+  const nextID=useTodoNextID();
 
   const onToggle=()=>setOpen(!open);
+  const onChange=(e)=>setValue(e.target.value);
+  const onSubmit=(e)=>{
+    e.preventDefault();
+    dispatch({
+      type:"CREATE",
+      todo:{
+        id:nextID.current,
+        text:value,
+        done:false
+      }
+    })
+    setValue('');
+    setOpen(false);
+    nextID.current+=1;
+  }
 
   return (
     <>
       {open&&(
         <InsertFormPositioner>
-          <InsertForm>
-            <Input autoFocus placeholder="새로운 할 일을 입력 후 Enter를 누르기" />
+          <InsertForm onSubmit={onSubmit}>
+            <Input
+              autoFocus
+              placeholder="새로운 할 일을 입력 후 Enter를 누르기"
+              onChange={onChange}
+              value={value}
+            />
           </InsertForm>
         </InsertFormPositioner>
       )}
@@ -93,4 +117,4 @@ const TodoListAdd=()=>{
   )
 }
 
-export default TodoListAdd;
+export default React.memo(TodoListAdd);
