@@ -23,7 +23,7 @@ const initialTodos=[
   },
 ];
 
-const todoReducer=({state, action})=>{
+const todoReducer=(state, action)=>{
   switch(action.type){
     case 'CREATE':
       return state.concat(action.todo);

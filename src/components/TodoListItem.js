@@ -1,17 +1,19 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import {useTodoDispatch} from "../TodoContext";
 
 const RemoveButton=styled.div`
   display:flex;
   align-items:center;
+  justify-content: center;
   color:#dee2e6;
   font-size: 24px;
   cursor:pointer;
+  opacity: 0;
   &:hover{
     color:#ff6b6b;
   }
-  display:none;
 `;
 
 const TodoItemBlock=styled.div`
@@ -21,7 +23,7 @@ const TodoItemBlock=styled.div`
   padding-bottom:12px;
   &:hover{
     ${RemoveButton}{
-      display: initial;
+      opacity: 1;
     }
   }
 `;
@@ -58,16 +60,22 @@ const Text = styled.div`
 `;
 
 const TodoListItem=({id, done, text})=>{
+  const dispatch=useTodoDispatch();
+  const onToggle=()=>dispatch({type:"TOGGLE", id});
+  const onRemove=()=>dispatch({type:"REMOVE", id});
+
   return (
     <TodoItemBlock>
-      <CheckCircle done={done}>{done && <MdDone/>}</CheckCircle>
+      <CheckCircle done={done} onClick={onToggle}>
+        {done && <MdDone/>}
+      </CheckCircle>
       {/* done 상태일 때만 MdDone 을 표시해 준다 */}
       <Text done={done}>{text}</Text>
-      <RemoveButton>
+      <RemoveButton onClick={onRemove}>
         <MdDelete />
       </RemoveButton>
     </TodoItemBlock>
   )
 }
 
-export default TodoListItem;
+export default React.memo(TodoListItem);
