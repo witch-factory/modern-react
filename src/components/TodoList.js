@@ -10,7 +10,10 @@ const TodoListBlock=styled.div`
 `
 
 const TodoList=()=>{
-  return <TodoListBlock><TodoListItem text="프로젝트 생성" /></TodoListBlock>
+  return (
+    <TodoListBlock>
+      <TodoListItem text="프로젝트 생성" done={true}/>
+    </TodoListBlock>)
 }
 
 export default TodoList;

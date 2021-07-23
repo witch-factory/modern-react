@@ -61,6 +61,7 @@ const TodoListItem=({id, done, text})=>{
   return (
     <TodoItemBlock>
       <CheckCircle done={done}>{done && <MdDone/>}</CheckCircle>
+      {/* done 상태일 때만 MdDone 을 표시해 준다 */}
       <Text done={done}>{text}</Text>
       <RemoveButton>
         <MdDelete />
