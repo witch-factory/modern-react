@@ -4,7 +4,7 @@ const initialTodos=[
   {
     id:1,
     text:'프로젝트 생성',
-    done:true
+    done:false
   },
   {
     id:2,
@@ -14,7 +14,7 @@ const initialTodos=[
   {
     id:3,
     text:'context 관리',
-    done:true
+    done:false
   },
   {
     id:4,
