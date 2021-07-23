@@ -29,8 +29,8 @@ function App(){
       >
       <AppBlock>
         <ButtonGroup>
-          <Button size="large">BUTTON</Button>
-          <Button>BUTTON</Button>
+          <Button size="large" outline>BUTTON</Button>
+          <Button fullWidth>BUTTON</Button>
           <Button size="small">BUTTON</Button>
         </ButtonGroup>
         <ButtonGroup>
