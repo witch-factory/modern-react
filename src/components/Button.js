@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, {css} from "styled-components";
-import {darken, lighten} from 'polished';
+import {darken, lighten, size} from 'polished';
 
 /* 색상 관련 스타일은 따로 분리 */
 const colorStyles=css`
@@ -20,6 +20,32 @@ const colorStyles=css`
   }}
 `
 
+const sizeStyles=css`
+  ${props => 
+      props.size==='large'&&
+      css`
+        height:3rem;
+        font-size:1.25rem;
+      `
+    }
+
+  ${props => 
+      props.size==='medium'&& 
+      css`
+        height:2.25rem;
+        font-size:1rem;
+    `
+  }
+
+  ${props =>
+          props.size==='small'&&
+          css`
+        height:1.75rem;
+        font-size:0.8rem;
+    `
+  }
+`
+
 const StyledButton=styled.button`
   /* 공통 스타일 */
   display: inline-flex;
@@ -33,8 +59,7 @@ const StyledButton=styled.button`
   padding-right: 1rem;
   
   /* 크기 */
-  height: 2.25rem;
-  font-size: 1rem;
+  ${sizeStyles}
   
   /* 색상 */
   ${colorStyles}
@@ -44,12 +69,13 @@ const StyledButton=styled.button`
   }
 `
 
-const Button=({children, color,...rest})=>{
-  return <StyledButton color={color}>{children}</StyledButton>
+const Button=({children, color, size,...rest})=>{
+  return <StyledButton color={color} size={size} {...rest}>{children}</StyledButton>
 }
 
 Button.defaultProps={
-  color:'blue'
+  color:'blue',
+  size:'medium'
 }
 
 export default Button;
