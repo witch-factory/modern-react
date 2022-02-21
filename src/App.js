@@ -1,27 +1,39 @@
-import React from 'react';
-import styled, {createGlobalStyle} from 'styled-components';
-import TodoTemplate from "./components/TodoTemplate.js";
-import TodoListHeader from "./components/TodoListHeader";
-import TodoList from "./components/TodoList";
-import TodoListAdd from "./components/TodoListAdd";
-import {TodoProvider} from "./TodoContext";
+import React, {useState} from 'react';
+import {FaStar} from "react-icons/all";
 
-const GlobalStyle=createGlobalStyle`
-  body{
-    background: #f8f0fc;
-  }
-`
+const Star=({selected=false, onSelect=f=>f})=>(
+  <FaStar color={selected?"red":"grey"} onClick={onSelect} />
+);
+
+const createArray=(length)=>[...Array(length)];
+
+const StarRating=({totalStars=5})=> {
+  const [selectedStars, setSelectedStars] = useState(0);
+  return (
+    <>
+      {createArray(totalStars).map((n, i) => (
+        <Star
+          key={i}
+          selected={selectedStars > i}
+          onSelect={() => setSelectedStars(i + 1)}
+        />
+      ))}
+      <p>
+        {selectedStars} / {totalStars}
+      </p>
+    </>
+  )
+}
 
 function App(){
   return (
-    <TodoProvider>
-      <GlobalStyle />
-      <TodoTemplate>
-        <TodoListHeader/>
-        <TodoList/>
-        <TodoListAdd />
-      </TodoTemplate>
-    </TodoProvider>
+    <>
+      <FaStar color="red" />
+      <FaStar color="red" />
+      <FaStar color="red" />
+      <FaStar color="red" />
+      <FaStar color="grey" />
+    </>
   )
 }
 
