@@ -1,25 +1,42 @@
-import React, {useRef} from "react";
+import React, {useState} from "react";
+
+const useInput=(initialValue)=>{
+  const [value, setValue]=useState(initialValue);
+
+  return [
+    {value, onChange:(e)=>setValue(e.target.value)},
+    ()=>setValue(initialValue)
+    //구조 분해로 할당할 수 있게
+  ];
+};
 
 function AddColorForm({onNewColor=(f)=>(f)}){
-  const txtTitle=useRef();
-  const hexColor=useRef();
-  //색 이름, 색 코드 수집
-  //DOM 엘리먼트에 직접 접근해 값 얻기 가능
+  const [titleProps, resetTitle]=useInput("");
+  const [colorProps, resetColor]=useInput("#000000");
 
   const colorSubmit=(e)=>{
     e.preventDefault();
-    //폼을 post 요청으로 보내는 것을 막는다
-    const title=txtTitle.current.value;
-    const color=hexColor.current.value;
-    onNewColor(title, color);
-    txtTitle.current.value="";
-    hexColor.current.value="";
+    onNewColor(titleProps.value, titleProps.value);
+    resetTitle();
+    resetColor();
   };
 
   return (
     <form onSubmit={colorSubmit}>
-      <input ref={txtTitle} type="text" placeholder="color title..." required />
-      <input ref={hexColor} type="color" required />
+      <input
+        {...titleProps}
+        type="text"
+        placeholder="color title..."
+        required
+      />
+      <input
+        {...colorProps}
+        type="color"
+        required
+      />
+      <button>ADD COLOR</button>
     </form>
   )
 }
+
+export default AddColorForm;
