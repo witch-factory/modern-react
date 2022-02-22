@@ -10,7 +10,10 @@ function Color({id, title, color, rating, onRemove=(f)=>(f), onRate=(f)=>(f)}){
         <FaTrash />
       </button>
       <div style={{height:50, backgroundColor:color}} />
-      <StarRating selectedStars={rating} onRate={rating=>onRate(id, rating)}/>
+      <StarRating
+        selectedStars={rating}
+        onRate={rating=>onRate(id, rating)}
+      />
     </section>
   )
 }
