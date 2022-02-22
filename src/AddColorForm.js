@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useColors} from "./color-hooks";
 
 const useInput=(initialValue)=>{
   const [value, setValue]=useState(initialValue);
@@ -13,10 +14,12 @@ const useInput=(initialValue)=>{
 function AddColorForm({onNewColor=(f)=>(f)}){
   const [titleProps, resetTitle]=useInput("");
   const [colorProps, resetColor]=useInput("#000000");
+  const {addColor}=useColors();
+  //컨텍스트에서 직접 가져온다
 
   const colorSubmit=(e)=>{
     e.preventDefault();
-    onNewColor(titleProps.value, titleProps.value);
+    addColor(titleProps.value, titleProps.value);
     resetTitle();
     resetColor();
   };
