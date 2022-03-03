@@ -1,30 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import ColorList from "./ColorList";
-import AddColorForm from "./AddColorForm";
-
-function Checkbox(){
-  const [checked, setChecked]=useState(false);
-
-  useEffect(()=>{
-    localStorage.setItem("checkbox-value", checked);
-  })
-  //렌더링이 끝나고 발생하는 함수
-
-  return (
-    <>
-      <input
-        type="checkbox"
-        value={checked}
-        onChange={()=>setChecked(checked=>!checked)}
-      />
-      {checked?"checked" : "not checked"}
-    </>
-  )
-}
+import React from "react";
+import {Routes, Route} from "react-router-dom";
+import {Home, About, Events, Products, Contact} from "./Pages";
 
 function App(){
   return (
-    <Checkbox />
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/events" element={<Events />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </div>
   )
 }
 
